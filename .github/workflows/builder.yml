@@ -17,6 +17,10 @@ jobs:
   build_rtl_433:
     name: Build rtl_433 addon
     runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     strategy:
       matrix:
         arch: [armhf, armv7, aarch64, amd64, i386]
@@ -55,7 +59,7 @@ jobs:
           --docker-hub $REGISTRY \
           --image ${{ github.repository}}-${{ matrix.addon }}-{arch} \
           --self-cache \
-          --version $GITHUB_REF_SLUG \
+#          --version $GITHUB_REF_SLUG \
           --no-latest \
           --target ${{ matrix.addon }}
 
@@ -68,6 +72,6 @@ jobs:
           --docker-hub $REGISTRY \
           --image ${{ github.repository}}-${{ matrix.addon }}-{arch} \
           --self-cache \
-          --version $GITHUB_REF_SLUG \
+#          --version $GITHUB_REF_SLUG \
           --no-latest \
           --target ${{ matrix.addon }}
