@@ -108,7 +108,8 @@ discovery_timeouts = {}
 # Fields that get ignored when publishing to Home Assistant
 # (reduces noise to help spot missing field mappings)
 SKIP_KEYS = [ "type", "model", "subtype", "channel", "id", "mic", "mod",
-                "freq", "sequence_num", "message_type", "exception", "raw_msg" ]
+                "freq", "sequence_num", "message_type", "exception", "raw_msg",
+                "flags_1", "flags_2", "physical_tamper", "ert_type", "encoder_tamper"]
 
 
 # Global mapping of rtl_433 field names to Home Assistant metadata.
@@ -116,6 +117,31 @@ SKIP_KEYS = [ "type", "model", "subtype", "channel", "id", "mic", "mod",
 # @todo - Model specific definitions might be needed
 
 mappings = {
+
+    "consumption_data": {
+        "device_type": "sensor",
+        "object_suffix": "consumption",
+        "config": {
+            "name": "Electric Meter",
+            "device_class": "energy",
+            "unit_of_measurement": "kWh",
+            "value_template": "{{ (value|float)*0.01 }}",
+            "state_class": "total_increasing",
+        }
+    },
+
+    "volume_gal": {
+        "device_type": "sensor",
+        "object_suffix": "water",
+        "config": {
+            "device_class": "water",
+            "name": "Water Meter",
+            "unit_of_measurement": "ft³",
+            "value_template": "{{ (value|float)*0.1 }}",
+            "state_class": "total_increasing"
+        }
+    },
+
     "temperature_C": {
         "device_type": "sensor",
         "object_suffix": "T",
@@ -605,18 +631,6 @@ mappings = {
             "state_class": "total_increasing"
         }
     },
-
-    "volume_gal": {
-        "device_type": "sensor",
-        "object_suffix": "kwh",
-        "config": {
-            "device_class": "energy",
-            "name": "Energy",
-            "unit_of_measurement": "kWh",
-            "value_template": "{{ (value|float)*0.01 }}",
-            "state_class": "total_increasing"
-        }
-    },
     
     "current_A": {
         "device_type": "sensor",
@@ -726,18 +740,6 @@ mappings = {
             "name": "Lightning Strike Count",
             "value_template": "{{ value|int }}",
             "state_class": "total_increasing"
-        }
-    },
-
-    "consumption_data": {
-        "device_type": "sensor",
-        "object_suffix": "consumption",
-        "config": {
-            "name": "SCM Consumption Value",
-            "device_class": "water",
-            "unit_of_measurement": "ft³",
-            "value_template": "{{ value|int }}",
-            "state_class": "total_increasing",
         }
     },
 
