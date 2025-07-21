@@ -136,8 +136,8 @@ mappings = {
         "config": {
             "device_class": "water",
             "name": "Water Meter",
-            "unit_of_measurement": "ft³",
-            "value_template": "{{ (value|float)*0.1 }}",
+            "unit_of_measurement": "gal",
+            "value_template": "{{ ((value|float)*0.1)*748.0 }}",
             "state_class": "total_increasing"
         }
     },
