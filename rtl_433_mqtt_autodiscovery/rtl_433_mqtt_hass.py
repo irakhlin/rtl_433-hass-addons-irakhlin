@@ -137,7 +137,7 @@ mappings = {
             "device_class": "water",
             "name": "Water Meter",
             "unit_of_measurement": "gal",
-            "value_template": "{{ ((value|float)*0.1)*748.0 }}",
+            "value_template": "{{ ((value|float)*0.1)*7.48 }}",
             "state_class": "total_increasing"
         }
     },
